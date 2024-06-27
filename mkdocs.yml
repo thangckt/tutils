@@ -179,7 +179,7 @@ nav:
   - thavid: http://thangckt.github.io/thavid_doc
 
   - thautils: http://thangckt.github.io/thautils
-      - About: index.md
+    - About: index.md
 
   - cluster: http://thangckt.github.io/cluster
   - refs: http://thangckt.github.io/ref
