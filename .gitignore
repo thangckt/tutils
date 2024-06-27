@@ -1,0 +1,44 @@
+### --------------------------------------------------------------------
+## data file
+### --------------------------------------------------------------------
+# *.dat
+# *.cfg
+# *.xyz
+*.guff
+
+### --------------------------------------------------------------------
+###  Python, python-jupyter stuff
+### --------------------------------------------------------------------
+# Build files
+/build
+/MANIFEST
+/site
+/*.egg-info
+/dist
+
+# ENV
+/venv
+/.venv
+
+# Caches and logs
+__pycache__
+**/.ipynb_checkpoints/
+
+## goodsync ignore
+**/_gsdata_/
+
+## tmp file due to office: ~$_*.doc,  ~$_*.ppt
+**/~*.*
+site/
+
+
+### --------------------------------------------------------------------
+### Latex tool auxiliary files:
+### --------------------------------------------------------------------
+# **/Zoutdir/   # this igore "folder", same as "Zoutdir/"
+# this igore "files" in folder
+__texdir__/
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
