@@ -10,6 +10,7 @@ def create_logger(logger_name: str = None,
     """ Create a logger"""
     # c_: means console; f_: means file
 
+    ### Define variables
     level_map = {
         "DEBUG": logging.DEBUG,
         "INFO": logging.INFO,
@@ -19,7 +20,9 @@ def create_logger(logger_name: str = None,
     }
     c_level = level_map.get(level)
     f_level = level_map.get(level_file) if level_file else c_level
-    logger_name = logger_name if logger_name else __name__
+
+    spec_name = __file__ if __file__ else __name__
+    logger_name = logger_name if logger_name else spec_name
 
     format_map = {
         'debug': '%(levelname)s - %(message)s | %(name)s - %(funcName)s:%(lineno)d',
@@ -30,7 +33,7 @@ def create_logger(logger_name: str = None,
     format_console = format_map[format]
     format_file = format_map['file']
 
-    # Create a custom logger
+    ### Create a console logger
     logger = logging.getLogger(logger_name)
     logger.setLevel(c_level)  # to show log in jupyter notebook
 
