@@ -13,7 +13,7 @@
 /build
 /MANIFEST
 /site
-/*.egg-info
+/*.egg-info/
 /dist
 
 # ENV
@@ -29,7 +29,6 @@ __pycache__
 
 ## tmp file due to office: ~$_*.doc,  ~$_*.ppt
 **/~*.*
-site/
 
 
 ### --------------------------------------------------------------------
