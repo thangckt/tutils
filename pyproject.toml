@@ -10,7 +10,7 @@ dependencies = []
 
 ### to use: pip install thamd[euler]
 [project.optional-dependencies]
-llm = ['google-generativeai']
+# llm = ['google-generativeai']
 
 
 [tool.setuptools.dynamic]
@@ -21,4 +21,4 @@ include = ["thautils*"]
 exclude = ["dev_tool*", "docs_site*"]
 
 [tool.setuptools.package-data]
-thautils = ['_cookie_file/*']
+# thautils = ['_cookie_file/*']
