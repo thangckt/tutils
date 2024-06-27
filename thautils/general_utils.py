@@ -47,7 +47,7 @@ def create_logger(logger_name: str = None,
 
     ### Add a file handler
     if logfile:
-        f_handler = logging.FileHandler(logfile)
+        f_handler = logging.FileHandler(logfile, mode='w')
         f_handler.setLevel(f_level)
         f_format = logging.Formatter(format_file)
         f_handler.setFormatter(f_format)
