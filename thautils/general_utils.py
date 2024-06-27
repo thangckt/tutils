@@ -29,7 +29,7 @@ def create_logger(logger_name: str = None,
     c_handler.setLevel(c_level)
 
     # Create formatters and add it to handlers
-    c_format = logging.Formatter('%(levelname)s - %(message)s — %(name)s - %(funcName)s:%(lineno)d')
+    c_format = logging.Formatter('%(levelname)s - %(message)s | %(name)s - %(funcName)s:%(lineno)d')
     c_handler.setFormatter(c_format)
 
     # Add handlers to the logger
@@ -39,7 +39,7 @@ def create_logger(logger_name: str = None,
     if logfile:
         f_handler = logging.FileHandler(logfile)
         f_handler.setLevel(f_level)
-        f_format = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s - %(name)s')
+        f_format = logging.Formatter('%(asctime)s | %(levelname)s - %(message)s | %(name)s')
         f_handler.setFormatter(f_format)
         logger.addHandler(f_handler)
 
