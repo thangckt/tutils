@@ -1,4 +1,4 @@
-site_name: thaml
+site_name: thautils
 site_author: C.Thang Nguyen
 # repo_url: ""
 # edit_uri: "https://github.com/thangckt/src_thatool/tree/main/docs"
@@ -184,6 +184,7 @@ nav:
       - utils: utils.md
 
   - thavid: http://thangckt.github.io/thavid_doc
+  - thautils: http://thangckt.github.io/thautils
 
   - cluster: http://thangckt.github.io/cluster
   - refs: http://thangckt.github.io/ref
