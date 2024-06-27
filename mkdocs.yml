@@ -175,16 +175,11 @@ nav:
   - home: http://thangckt.github.io
   # - molbuilder: https://thangckt.github.io/molbuilder
   - thamd: http://thangckt.github.io/thamd_doc
-
-  - thaml:
-      - About: index.md
-      - llm_chat: llm_chat.md
-      - llm_langchain: llm_langchain.md
-      - rag: rag.md
-      - utils: utils.md
-
+  - thaml: http://thangckt.github.io/thaml_doc
   - thavid: http://thangckt.github.io/thavid_doc
+
   - thautils: http://thangckt.github.io/thautils
+      - About: index.md
 
   - cluster: http://thangckt.github.io/cluster
   - refs: http://thangckt.github.io/ref
