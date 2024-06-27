@@ -4,7 +4,8 @@ import logging
 def create_logger(logger_name: str = None,
                   logfile: str = None,
                   level: str = "INFO",
-                  file_level: str = None) -> logging.Logger:
+                  level_file: str = None,
+                  format='info') -> logging.Logger:
     ### ref: https://realpython.com/python-logging/#using-handlers
     """ Create a logger"""
     # c_: means console; f_: means file
@@ -17,8 +18,17 @@ def create_logger(logger_name: str = None,
         "CRITICAL": logging.CRITICAL
     }
     c_level = level_map.get(level)
-    f_level = level_map.get(file_level) if file_level else c_level
+    f_level = level_map.get(level_file) if level_file else c_level
     logger_name = logger_name if logger_name else __name__
+
+    format_map = {
+        'debug': '%(levelname)s - %(message)s | %(name)s - %(funcName)s:%(lineno)d',
+        'info': '%(levelname)s - %(message)s | %(name)s',
+        'file': '%(asctime)s | %(levelname)s - %(message)s | %(name)s'
+    }
+
+    format_console = format_map[format]
+    format_file = format_map['file']
 
     # Create a custom logger
     logger = logging.getLogger(logger_name)
@@ -29,7 +39,7 @@ def create_logger(logger_name: str = None,
     c_handler.setLevel(c_level)
 
     # Create formatters and add it to handlers
-    c_format = logging.Formatter('%(levelname)s - %(message)s | %(name)s - %(funcName)s:%(lineno)d')
+    c_format = logging.Formatter(format_console)
     c_handler.setFormatter(c_format)
 
     # Add handlers to the logger
@@ -39,7 +49,7 @@ def create_logger(logger_name: str = None,
     if logfile:
         f_handler = logging.FileHandler(logfile)
         f_handler.setLevel(f_level)
-        f_format = logging.Formatter('%(asctime)s | %(levelname)s - %(message)s | %(name)s')
+        f_format = logging.Formatter(format_file)
         f_handler.setFormatter(f_format)
         logger.addHandler(f_handler)
 
