@@ -5,14 +5,14 @@
 
 def check_installation(package_name: str,
                        git_repo: str = None,
-                       make_install: bool = False) -> None:
+                       auto_install: bool = False) -> None:
     """
     Check if the required packages are installed
     """
     try:
         __import__(package_name)
     except ImportError:
-        if make_install:
+        if auto_install:
             _install_package(package_name, git_repo)
         else:
             raise ImportError(f"Required package `{package_name}` is not installed. Please install the package.")

@@ -21,7 +21,8 @@
 /.venv
 
 # Caches and logs
-__pycache__
+# __pycache__
+**/__pycache__/
 **/.ipynb_checkpoints/
 
 ## goodsync ignore
