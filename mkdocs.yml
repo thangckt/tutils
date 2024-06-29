@@ -178,7 +178,7 @@ nav:
   - thaml: http://thangckt.github.io/thaml_doc
   - thvid: http://thangckt.github.io/thvid_doc
 
-  - thutils:
+  - thtils:
       - About: index.md
 
   - cluster: http://thangckt.github.io/cluster
