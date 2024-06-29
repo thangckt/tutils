@@ -176,9 +176,9 @@ nav:
   # - molbuilder: https://thangckt.github.io/molbuilder
   - thamd: http://thangckt.github.io/thamd_doc
   - thaml: http://thangckt.github.io/thaml_doc
-  - thavid: http://thangckt.github.io/thavid_doc
+  - thvid: http://thangckt.github.io/thvid_doc
 
-  - thautils:
+  - thutils:
       - About: index.md
 
   - cluster: http://thangckt.github.io/cluster
