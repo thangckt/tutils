@@ -4,7 +4,7 @@ name: mkdocs-deploy
 on:
   push:
     branches: [ main, dev ]
-    paths: ['thautils/**', 'docs_site/**', 'mkdocs.yml']   # Only run workflow when changes in these folders
+    paths: ['thutils/**', 'docs_site/**', 'mkdocs.yml']   # Only run workflow when changes in these folders
   pull_request:
     branches: [ main, dev ]
 
