@@ -1,5 +1,5 @@
-# `thautils` Documentation
+# `thutils` Documentation
 
-::: thautils
+::: thutils
     options:
         members: false
