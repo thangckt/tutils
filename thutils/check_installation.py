@@ -18,7 +18,7 @@ def check_installation(package_name: str,
             _install_package(package_name, git_repo)
             if extra_commands:
                 for command in extra_commands:
-                    subprocess.run([sys.executable, command], check=True)
+                    subprocess.run(command, check=True)
         else:
             raise ImportError(f"Required package `{package_name}` is not installed. Please install the package.")
     return
@@ -39,9 +39,11 @@ def _install_package(package_name: str,
     try:
         logger.info(f"Installing the required packages: `{package_name}` ...")
         if git_repo:
-            subprocess.run([sys.executable, "python", "-m", "pip", "install", "-U", "git+" + git_repo], check=True)
+            command = f"pip install -U git+{git_repo}"
         else:
-            subprocess.run([sys.executable, "python", "-m", "pip", "install", "-U", package_name], check=True)
+            command = f"pip install -U {package_name}"
+
+        subprocess.run(command, check = True)
 
         logger.info("Installation successful!")
 
