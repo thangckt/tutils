@@ -33,7 +33,7 @@ def _install_package(package_name: str,
         package_name (str): package name
         git_repo (str): git path for the package
     """
-    from thautils import create_logger
+    from .general_utils import create_logger
     logger = create_logger()
 
     try:
