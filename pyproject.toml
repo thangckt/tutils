@@ -5,8 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "thutil"
 dynamic = ["version"]
-requires-python = ">=3.8"
+description = "General utilities for Python"
+authors = [{ name = "C.Thang Nguyen", email = "thangckt@gmail.com" }]
+license = { file = "LICENSE.md" }
+
 dependencies = []
+
+requires-python = ">=3.7"
 
 ### to use: pip install thamd[euler]
 [project.optional-dependencies]
@@ -19,6 +24,11 @@ version = { attr = "thutil.__version__" }
 [tool.setuptools.packages.find]
 include = ["thutil*"]
 exclude = ["dev_tool*", "docs_site*"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = []
+
 
 [tool.setuptools.package-data]
 # thutil = ['_cookie_file/*']
