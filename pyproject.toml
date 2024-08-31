@@ -19,7 +19,7 @@ requires-python = ">=3.7"
 
 
 [tool.setuptools_scm]
-version_file = "thautil/_version.py"
+version_file = "thutil/_version.py"
 
 [tool.setuptools.packages.find]
 include = ["thutil*"]
