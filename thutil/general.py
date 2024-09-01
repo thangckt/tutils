@@ -7,7 +7,7 @@ def create_logger(
     logfile: str = None,
     level: str = "INFO",
     level_logfile: str = None,
-    format="info",
+    format_="info",
 ) -> logging.Logger:
     ### ref: https://realpython.com/python-logging/#using-handlers
     """Create a logger"""
@@ -26,16 +26,20 @@ def create_logger(
 
     format_map = {
         "debug": "%(levelname)s - %(message)s | %(name)s - %(funcName)s:%(lineno)d",
-        "info": "%(levelname)s - %(message)s | %(name)s",
-        "file": "%(asctime)s | %(levelname)s - %(message)s | %(name)s",
+        "info": "%(name)s | %(levelname)s - %(message)s",
+        "file": "%(asctime)s | %(name)s | %(levelname)s - %(message)s",
     }
 
-    format_console = format_map[format]
+    format_console = format_map[format_]
     format_file = format_map["file"]
 
     ### Create a console logger
-    spec_name = __file__ if __file__ else __name__
-    logger_name = logger_name if logger_name else spec_name
+    if logger_name:
+        logger_name = logger_name
+    elif __file__:
+        logger_name = __file__
+    else:
+        logger_name = __name__
     logger = logging.getLogger(logger_name)
     logger.setLevel(c_level)  # to show log in jupyter notebook
 
