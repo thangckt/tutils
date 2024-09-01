@@ -6,7 +6,7 @@ def create_logger(
     logger_name: str = None,
     logfile: str = None,
     level: str = "INFO",
-    level_file: str = None,
+    level_logfile: str = None,
     format="info",
 ) -> logging.Logger:
     ### ref: https://realpython.com/python-logging/#using-handlers
@@ -22,10 +22,7 @@ def create_logger(
         "CRITICAL": logging.CRITICAL,
     }
     c_level = level_map.get(level)
-    f_level = level_map.get(level_file) if level_file else c_level
-
-    spec_name = __file__ if __file__ else __name__
-    logger_name = logger_name if logger_name else spec_name
+    f_level = level_map.get(level_logfile) if level_logfile else c_level
 
     format_map = {
         "debug": "%(levelname)s - %(message)s | %(name)s - %(funcName)s:%(lineno)d",
@@ -37,6 +34,8 @@ def create_logger(
     format_file = format_map["file"]
 
     ### Create a console logger
+    spec_name = __file__ if __file__ else __name__
+    logger_name = logger_name if logger_name else spec_name
     logger = logging.getLogger(logger_name)
     logger.setLevel(c_level)  # to show log in jupyter notebook
 
