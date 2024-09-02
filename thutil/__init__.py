@@ -16,4 +16,4 @@ except ImportError:
 __description__ = "Python package"
 __long_description__ = "ML based applications "
 __author__ = "thangckt"
-__author_email__ = "thangckt@gmail.com"
+__email__ = "thangckt@gmail.com"
