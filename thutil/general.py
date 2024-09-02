@@ -4,7 +4,7 @@ import subprocess
 
 def create_logger(
     logger_name: str = None,
-    logfile: str = None,
+    log_file: str = None,
     level: str = "INFO",
     level_logfile: str = None,
     format_="info",
@@ -25,9 +25,9 @@ def create_logger(
     f_level = level_map.get(level_logfile) if level_logfile else c_level
 
     format_map = {
-        "debug": "%(levelname)s - %(message)s | %(name)s - %(funcName)s:%(lineno)d",
-        "info": "%(name)s | %(levelname)s - %(message)s",
-        "file": "%(asctime)s | %(name)s | %(levelname)s - %(message)s",
+        "debug": "%(name)s - %(levelname)s: %(message)s | %(funcName)s:%(lineno)d",
+        "info": "%(name)s - %(levelname)s: %(message)s",
+        "file": "%(asctime)s | %(name)s - %(levelname)s: %(message)s",
     }
 
     format_console = format_map[format_]
@@ -55,8 +55,8 @@ def create_logger(
     logger.addHandler(c_handler)
 
     ### Add a file handler
-    if logfile:
-        f_handler = logging.FileHandler(logfile, mode="w")
+    if log_file:
+        f_handler = logging.FileHandler(log_file, mode="w")
         f_handler.setLevel(f_level)
         f_format = logging.Formatter(format_file)
         f_handler.setFormatter(f_format)
