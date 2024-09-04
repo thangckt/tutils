@@ -72,6 +72,9 @@ def collect_files(paths: list[str], filters: list[str]) -> list[str]:
     search_files = list_files_in_dirs(dirs, filters)
     files.extend(search_files)
     files = list(set(files))
+
+    if not files:
+        warnings.warn(f"The file list is empty. Check the paths {paths}.")
     return files
 
 
@@ -87,9 +90,6 @@ def combine_text_files(files: list[str], output_file: str):
 
     with open(output_file, "w") as f:
         f.write(text)
-
-    if not text:
-        warnings.warn(f"The file {output_file} is empty.")
     return
 
 
