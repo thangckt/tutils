@@ -1,4 +1,5 @@
 import json
+import warnings
 from glob import glob
 from pathlib import Path
 from typing import Union
@@ -86,6 +87,9 @@ def combine_text_files(files: list[str], output_file: str):
 
     with open(output_file, "w") as f:
         f.write(text)
+
+    if not text:
+        warnings.warn(f"The file {output_file} is empty.")
     return
 
 
