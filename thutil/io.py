@@ -6,15 +6,6 @@ from typing import Union
 import yaml
 
 
-def list_files_in_dirs(folders: list[str], extensions: list[str]) -> list[str]:
-    """Ex: folders = ["folder1", "folder2", "folder3"], extensions = [".ext1", ".ext2"]"""
-    files = []
-    for folder in folders:
-        for ext in extensions:
-            files.extend(glob(f"{folder}/**/*{ext}", recursive=True))
-    return files
-
-
 def unpack_dict(nested_dict: dict) -> dict:
     """Unpack one level of nested dictionary."""
     # flat_dict = {
@@ -34,7 +25,70 @@ def unpack_dict(nested_dict: dict) -> dict:
     return flat_dict
 
 
+### ANCHOR: Collect files
+
+
+def list_files_in_dirs(folders: list[str], filters: list[str]) -> list[str]:
+    """List all files in given directories and their subdirectories that match the provided filters.
+
+    Parameters
+    ----------
+    folders : list[str]
+        The list of folders to search for files.
+    filters : list[str]
+        The list of filters to apply to the files. Each filter can be a file extension or a pattern.
+
+    Returns:
+    -------
+    List[str]: A list of matching file paths.
+
+    Example:
+    --------
+    ```python
+    folders = ["folder1", "folder2", "folder3"]
+    filters = [".ext1", ".ext2", "something*.ext3"]
+    files = list_files_in_dirs(folders, filters)
+    ```
+    """
+    files = []
+    for folder in folders:
+        for pattern in filters:
+            files.extend(glob.glob(f"{folder}/**/*{pattern}", recursive=True))
+
+    files = list(set(files))  # Remove duplicates
+    return files
+
+
+def collect_files(paths: list[str], filters: list[str]) -> list[str]:
+    """Collect files from a list of paths (files/folders)."""
+    if not isinstance(paths, list):
+        paths = [paths]
+
+    ### Detemine dirs vs. files
+    files = [p for p in paths if Path(p).is_file()]
+    dirs = [p for p in paths if Path(p).is_dir()]
+
+    search_files = list_files_in_dirs(dirs, filters)
+    files.extend(search_files)
+    files = list(set(files))
+    return files
+
+
 ### ANCHOR: Load data from file
+
+
+def combine_text_files(files: list[str], output_file: str):
+    """Combine text files into a single file."""
+    text = ""
+    for file in files:
+        with open(file) as f:
+            text += f.read()
+
+    with open(output_file, "w") as f:
+        f.write(text)
+    return
+
+
 def load_setting_file(filename: Union[str, Path]) -> dict:
     """Load data from a JSON or YAML file.
 
