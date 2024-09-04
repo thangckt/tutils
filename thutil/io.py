@@ -3,6 +3,8 @@ from glob import glob
 from pathlib import Path
 from typing import Union
 
+import yaml
+
 
 def list_files_in_dirs(folders: list[str], extensions: list[str]) -> list[str]:
     """Ex: folders = ["folder1", "folder2", "folder3"], extensions = [".ext1", ".ext2"]"""
@@ -44,7 +46,7 @@ def load_setting_file(filename: Union[str, Path]) -> dict:
     Returns
     -------
     dict
-        The data loaded from the file
+        jdata: (dict) The data loaded from the file
 
     Raises
     ------
@@ -52,22 +54,19 @@ def load_setting_file(filename: Union[str, Path]) -> dict:
         If the file format is not supported
     """
     if Path(filename).suffix in [".json", ".jsonc"]:
-        data = load_jsonc(filename)
+        jdata = load_jsonc(filename)
     elif Path(filename).suffix in [".yaml", ".yml"]:
-        from ruamel.yaml import YAML
-
-        yaml = YAML(typ="safe", pure=True)
-        with Path(filename).open() as fo:
-            data = yaml.load(fo)
+        with open(filename) as f:
+            jdata = yaml.safe_load(f)
     else:
         raise ValueError(f"Unsupported file format: {filename}")
-    return data
+    return jdata
 
 
 def load_jsonc(filename: Union[str, Path]) -> dict:
     """Load data from a JSON file that allow comments."""
-    with Path(filename).open() as fo:
-        lines = fo.readlines()
+    with open(filename) as f:
+        lines = f.readlines()
     cleaned_lines = [line.strip().split("//", 1)[0] for line in lines if line.strip()]
     text = "\n".join(cleaned_lines)
     jdata = json.loads(text)
