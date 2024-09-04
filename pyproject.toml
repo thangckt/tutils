@@ -9,7 +9,7 @@ description = "General utilities for Python"
 authors = [{ name = "C.Thang Nguyen", email = "thangckt@gmail.com" }]
 license = { file = "LICENSE.md" }
 
-dependencies = []
+dependencies = ['pyyaml']
 
 requires-python = ">=3.7"
 
