@@ -2,21 +2,27 @@ from pathlib import Path
 from typing import Union
 
 
-def file2text(file_path: Union[str, Path]) -> str:
+def file2str(file_path: Union[str, Path]) -> str:
     with open(file_path, "r") as f:
         text = f.read()
     return text
 
 
-def text2file(text: str, file_path: Union[str, Path]) -> None:
+def str2file(text: str, file_path: Union[str, Path]) -> None:
     with open(file_path, "w") as f:
         f.write(text)
     return
 
 
+def file2list(file_path: Union[str, Path]) -> list[str]:
+    with open(file_path, "r") as f:
+        L = f.readlines()
+    return L
+
+
 def list2file(text_list: list, file_path: Union[str, Path]) -> None:
     text = "\n".join(text_list)
-    text2file(text, file_path)
+    str2file(text, file_path)
     return
 
 
