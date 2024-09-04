@@ -53,7 +53,7 @@ def list_files_in_dirs(folders: list[str], filters: list[str]) -> list[str]:
     files = []
     for folder in folders:
         for pattern in filters:
-            files.extend(glob.glob(f"{folder}/**/*{pattern}", recursive=True))
+            files.extend(glob(f"{folder}/**/*{pattern}", recursive=True))
 
     files = list(set(files))  # Remove duplicates
     return files
