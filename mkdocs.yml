@@ -180,6 +180,9 @@ nav:
 
   - thutils:
       - About: index.md
+      - general.md
+      - io.md
+      - sth2sth.md
 
   - cluster: http://thangckt.github.io/cluster
   - refs: http://thangckt.github.io/ref
