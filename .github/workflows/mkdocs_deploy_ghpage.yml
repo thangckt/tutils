@@ -1,5 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-name: mkdocs-deploy
+name: mkdocs gh-deploy
 
 on:
   push:
@@ -12,23 +11,23 @@ on:
 jobs:
   build:
     name: MkDocs Github Pages automatic deployment
-    runs-on: ubuntu-latest   # ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout main          # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout main # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         uses: actions/checkout@v4
 
       - name: Set up Python 3
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Install dependencies  # mkdocs-jupyter can cause broken in tabs-header
+      - name: Install dependencies # mkdocs-jupyter can cause broken in tabs-header
         run: |
-          pip install git+https://github.com/thangckt/mkdocs-material.git@main      # tabs_header_v8    master   v9.4.9  v9.5.6  tabs_header_yinkh
+          pip install git+https://github.com/thangckt/mkdocs-material.git@main     # main  v9.4.9 tabs_header_yinkh
           pip install mkdocstrings[python]>=0.24
 
           # pip install mkdocs-jupyter # conflict
           # pip install mkdocs-enumerate-headings-plugin #  mkdocs
 
-      - name: MkDocs gh-deploy    # This will create `gh-pages` branch contain `mkdocs-site`
+      - name: MkDocs build & deploy site # This will create `gh-pages` branch contain `mkdocs-site`. See https://www.mkdocs.org/user-guide/cli/#mkdocs-gh-deploy
         run: mkdocs gh-deploy --force --verbose
