@@ -29,15 +29,15 @@ def unpack_dict(nested_dict: dict) -> dict:
 ### ANCHOR: Collect files
 
 
-def list_files_in_dirs(folders: list[str], filters: list[str]) -> list[str]:
-    """List all files in given directories and their subdirectories that match the provided filters.
+def list_files_in_dirs(folders: list[str], patterns: list[str]) -> list[str]:
+    """List all files in given directories and their subdirectories that match the provided patterns.
 
     Parameters
     ----------
     folders : list[str]
         The list of folders to search for files.
-    filters : list[str]
-        The list of filters to apply to the files. Each filter can be a file extension or a pattern.
+    patterns : list[str]
+        The list of patterns to apply to the files. Each filter can be a file extension or a pattern.
 
     Returns:
     -------
@@ -47,21 +47,33 @@ def list_files_in_dirs(folders: list[str], filters: list[str]) -> list[str]:
     --------
     ```python
     folders = ["folder1", "folder2", "folder3"]
-    filters = [".ext1", ".ext2", "something*.ext3"]
-    files = list_files_in_dirs(folders, filters)
+    patterns = [".ext1", ".ext2", "something*.ext3"]
+    files = list_files_in_dirs(folders, patterns)
     ```
     """
     files = []
     for folder in folders:
-        for pattern in filters:
+        for pattern in patterns:
             files.extend(glob(f"{folder}/**/*{pattern}", recursive=True))
 
     files = list(set(files))  # Remove duplicates
     return files
 
 
-def collect_files(paths: list[str], filters: list[str]) -> list[str]:
-    """Collect files from a list of paths (files/folders)."""
+def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
+    """Collect files from a list of paths (files/folders). Will search files in folders and their subdirectories.
+
+    Parameters
+    ----------
+    paths : list[str]
+        The list of paths to collect files from.
+    patterns : list[str]
+        The list of patterns to apply to the files. Each filter can be a file extension or a pattern.
+
+    Returns:
+    -------
+    List[str]: A list of paths matching files.
+    """
     if not isinstance(paths, list):
         paths = [paths]
 
@@ -69,7 +81,7 @@ def collect_files(paths: list[str], filters: list[str]) -> list[str]:
     files = [p for p in paths if Path(p).is_file()]
     dirs = [p for p in paths if Path(p).is_dir()]
 
-    search_files = list_files_in_dirs(dirs, filters)
+    search_files = list_files_in_dirs(dirs, patterns)
     files.extend(search_files)
     files = list(set(files))
 
