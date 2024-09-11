@@ -58,10 +58,10 @@ theme:
 
 ### Extra theme
 extra_javascript:
-  - _extend_theme/extra_js/gg_adsense.js
+  - _extra_theme/extra_js/gg_adsense.js
 extra_css:
-  - _extend_theme/extra_css/full_width.css
-  - _extend_theme/extra_css/font_size.css
+  - _extra_theme/extra_css/full_width.css
+  - _extra_theme/extra_css/font_size.css
 
 ## Customization
 extra:
