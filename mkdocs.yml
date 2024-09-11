@@ -183,6 +183,7 @@ nav:
       - general.md
       - io.md
       - sth2sth.md
+  - almace: http://thangckt.github.io/almace_doc
 
   - cluster: http://thangckt.github.io/cluster
   - refs: http://thangckt.github.io/ref
