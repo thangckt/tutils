@@ -174,8 +174,8 @@ plugins:
 nav:
   - home: http://thangckt.github.io
   # - molbuilder: https://thangckt.github.io/molbuilder
-  - thamd: http://thangckt.github.io/thamd_doc
-  - thaml: http://thangckt.github.io/thaml_doc
+  - thmd: http://thangckt.github.io/thmd_doc
+  - thml: http://thangckt.github.io/thml_doc
   - thvid: http://thangckt.github.io/thvid_doc
 
   - thutil:
