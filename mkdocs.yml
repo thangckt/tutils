@@ -178,12 +178,12 @@ nav:
   - thaml: http://thangckt.github.io/thaml_doc
   - thvid: http://thangckt.github.io/thvid_doc
 
-  - thutils:
+  - thutil:
       - About: index.md
       - general.md
       - io.md
       - sth2sth.md
-  - almace: http://thangckt.github.io/almace_doc
+  - alff: http://thangckt.github.io/alff_doc
 
   - cluster: http://thangckt.github.io/cluster
   - refs: http://thangckt.github.io/ref
