@@ -174,16 +174,17 @@ plugins:
 nav:
   - home: http://thangckt.github.io
   # - molbuilder: https://thangckt.github.io/molbuilder
+  - alff: http://thangckt.github.io/alff_doc
   - thmd: http://thangckt.github.io/thmd_doc
   - thml: http://thangckt.github.io/thml_doc
-  - thvid: http://thangckt.github.io/thvid_doc
 
   - thutil:
       - About: index.md
       - general.md
       - io.md
       - sth2sth.md
-  - alff: http://thangckt.github.io/alff_doc
+
+  - thvid: http://thangckt.github.io/thvid_doc
 
   - cluster: http://thangckt.github.io/cluster
   - refs: http://thangckt.github.io/ref
