@@ -141,3 +141,10 @@ def load_jsonc(filename: Union[str, Path]) -> dict:
     text = "\n".join(cleaned_lines)
     jdata = json.loads(text)
     return jdata
+
+
+def write_yaml(data_dict: dict, filename: Union[str, Path]):
+    """Write data to a YAML file."""
+    with open(filename, "w") as f:
+        yaml.safe_dump(data_dict, f, default_flow_style=False, sort_keys=False)
+    return
