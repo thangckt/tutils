@@ -11,18 +11,6 @@ def create_logger(
 ) -> logging.Logger:
     """Create and configure a logger with console and optional file handlers."""
 
-    # Register a new custom logging level "TEXT" with level 5
-    TEXT_LEVEL = 5
-    logging.addLevelName(TEXT_LEVEL, "TEXT")
-
-    # Define the custom 'text' method for the logger
-    def text(self, message, *args, **kwargs):
-        if self.isEnabledFor(TEXT_LEVEL):
-            self._log(TEXT_LEVEL, message, args, **kwargs)
-
-    # Add the custom 'text' method to the Logger class
-    logging.Logger.text = text
-
     # Define logging levels and formats
     level_map = {
         "DEBUG": logging.DEBUG,
@@ -30,13 +18,11 @@ def create_logger(
         "WARNING": logging.WARNING,
         "ERROR": logging.ERROR,
         "CRITICAL": logging.CRITICAL,
-        "TEXT": TEXT_LEVEL,
     }
     format_map = {
         "debug": "%(name)s - %(levelname)s: %(message)s | %(funcName)s:%(lineno)d",
         "info": "%(name)s - %(levelname)s: %(message)s",
         "file": "%(asctime)s | %(name)s - %(levelname)s: %(message)s",
-        "text": "%(message)s",
     }
 
     # Set console and file logging levels
