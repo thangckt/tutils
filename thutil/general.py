@@ -7,54 +7,53 @@ def create_logger(
     log_file: str = None,
     level: str = "INFO",
     level_logfile: str = None,
-    format_="info",
+    format_: str = "info",
 ) -> logging.Logger:
-    ### ref: https://realpython.com/python-logging/#using-handlers
-    """Create a logger"""
-    # c_: means console; f_: means file
+    """Create and configure a logger with console and optional file handlers."""
 
-    ### Define variables
+    # Register a new custom logging level "TEXT" with level 5
+    logging.addLevelName(5, "TEXT")
+
+    # Define logging levels and formats
     level_map = {
         "DEBUG": logging.DEBUG,
         "INFO": logging.INFO,
         "WARNING": logging.WARNING,
         "ERROR": logging.ERROR,
         "CRITICAL": logging.CRITICAL,
+        "TEXT": 5,
     }
-    c_level = level_map.get(level)
-    f_level = level_map.get(level_logfile) if level_logfile else c_level
-
     format_map = {
         "debug": "%(name)s - %(levelname)s: %(message)s | %(funcName)s:%(lineno)d",
         "info": "%(name)s - %(levelname)s: %(message)s",
         "file": "%(asctime)s | %(name)s - %(levelname)s: %(message)s",
+        "text": "%(message)s",
     }
 
-    format_console = format_map[format_]
+    # Set console and file logging levels
+    c_level = level_map.get(level, logging.INFO)
+    f_level = level_map.get(level_logfile, c_level)
+
+    # Set logging formats
+    format_console = format_map.get(format_, format_map["info"])
     format_file = format_map["file"]
 
-    ### Create a console logger
-    if logger_name:
-        logger_name = logger_name
-    elif __file__:
-        logger_name = __file__
-    else:
+    # Determine the logger name
+    if not logger_name:
         logger_name = __name__
-    logger = logging.getLogger(logger_name)
-    logger.setLevel(c_level)  # to show log in jupyter notebook
 
-    # Create handlers
+    # Create and configure the logger
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(c_level)  # Ensures the logger can handle the specified log level
+
+    # Create console handler
     c_handler = logging.StreamHandler()
     c_handler.setLevel(c_level)
-
-    # Create formatters and add it to handlers
     c_format = logging.Formatter(format_console)
     c_handler.setFormatter(c_format)
-
-    # Add handlers to the logger
     logger.addHandler(c_handler)
 
-    ### Add a file handler
+    # Create file handler if log_file is specified
     if log_file:
         f_handler = logging.FileHandler(log_file, mode="w")
         f_handler.setLevel(f_level)
