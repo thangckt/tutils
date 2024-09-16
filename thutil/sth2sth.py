@@ -16,8 +16,9 @@ def str2file(text: str, file_path: Union[str, Path]) -> None:
 
 def file2list(file_path: Union[str, Path]) -> list[str]:
     with open(file_path, "r") as f:
-        L = f.readlines()
-    return L
+        lines = f.readlines()
+    lines = [line.strip() for line in lines]
+    return lines
 
 
 def list2file(text_list: list, file_path: Union[str, Path]) -> None:
