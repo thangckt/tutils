@@ -29,38 +29,52 @@ def unpack_dict(nested_dict: dict) -> dict:
 ### ANCHOR: Collect files
 
 
-def list_files_in_dirs(folders: list[str], patterns: list[str]) -> list[str]:
-    """List all files in given directories and their subdirectories that match the provided patterns.
+def list_paths(paths: list[str], patterns: list[str], recursive=True) -> list[str]:
+    """List all files/folders in given directories and their subdirectories that match the given patterns.
 
     Parameters
     ----------
-    folders : list[str]
-        The list of folders to search for files.
+    paths : list[str]
+        The list of paths to search files/folders.
     patterns : list[str]
         The list of patterns to apply to the files. Each filter can be a file extension or a pattern.
 
     Returns:
     -------
-    List[str]: A list of matching file paths.
+    List[str]: A list of matching paths.
 
     Example:
     --------
     ```python
-    folders = ["folder1", "folder2", "folder3"]
-    patterns = [".ext1", ".ext2", "something*.ext3"]
+    folders = ["path1", "path2", "path3"]
+    patterns = ["*.ext1", "*.ext2", "something*.ext3", "*folder/"]
     files = list_files_in_dirs(folders, patterns)
     ```
+
+    Note:
+    -----
+    - glob() does not list hidden files by default. To include hidden files, use glob(".*", recursive=True).
+    - When use recursive=True, must include `**` in the pattern to search subdirectories.
+        - glob("*", recursive=True) will search all FILES & FOLDERS in the CURRENT directory.
+        - glob("*/", recursive=True) will search all FOLDERS in the current CURRENT directory.
+        - glob("**", recursive=True) will search all FILES & FOLDERS in the CURRENT & SUB subdirectories.
+        - glob("**/", recursive=True) will search all FOLDERS in the current CURRENT & SUB subdirectories.
+        - "**/*" is equivalent to "**".
+        - "**/*/" is equivalent to "**/".
+    - IMPORTANT: "**/**" will replicate the behavior of "**", then give unexpected results.
+
     """
-    files = []
-    for folder in folders:
+
+    result_paths = []
+    for path in paths:
         for pattern in patterns:
-            files.extend(glob(f"{folder}/**/*{pattern}", recursive=True))
+            result_paths.extend(glob(f"{path}/**/{pattern}", recursive=recursive))
 
-    files = list(set(files))  # Remove duplicates
-    return files
+    result_paths = list(set(result_paths))  # Remove duplicates
+    return result_paths
 
 
-def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
+def collect_files(paths: list[str], exts: list[str]) -> list[str]:
     """Collect files from a list of paths (files/folders). Will search files in folders and their subdirectories.
 
     Parameters
@@ -77,22 +91,29 @@ def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
     if not isinstance(paths, list):
         paths = [paths]
 
-    ### Detemine dirs vs. files
+    ### Detemine paths: dirs, files, and patterns
     files = [p for p in paths if Path(p).is_file()]
-    dirs = [p for p in paths if Path(p).is_dir()]
+    dir_paths = [p for p in paths if Path(p).is_dir()]
+    pattern_paths = [p for p in paths if "*" in p]
 
-    search_files = list_files_in_dirs(dirs, patterns)
+    ### Files from dir_paths
+    patterns = [f"*.{ext.replace('*','')}" for ext in exts]  # revise exts to patterns
+    search_files = list_paths(dir_paths, patterns)
     files.extend(search_files)
-    files = list(set(files))
 
+    ### Files from pattern_paths
+    search_files = []
+    for pattern_path in pattern_paths:
+        search_files.extend(glob(pattern_path))
+
+    files.extend(search_files)
+    files = list(set(files))  # Remove duplicates
     if not files:
         warnings.warn(f"The file list is empty. Check the paths {paths}.")
     return files
 
 
 ### ANCHOR: Load data from file
-
-
 def combine_text_files(files: list[str], output_file: str):
     """Combine text files into a single file."""
     text = ""
