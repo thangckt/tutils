@@ -68,7 +68,10 @@ def list_paths(paths: list[str], patterns: list[str], recursive=True) -> list[st
     result_paths = []
     for path in paths:
         for pattern in patterns:
-            result_paths.extend(glob(f"{path}/**/{pattern}", recursive=recursive))
+            if recursive:
+                result_paths.extend(glob(f"{path}/**/*{pattern}", recursive=recursive))
+            else:
+                result_paths.extend(glob(f"{path}/*{pattern}"))
 
     result_paths = list(set(result_paths))  # Remove duplicates
     paths = [Path(p).as_posix() for p in result_paths]
