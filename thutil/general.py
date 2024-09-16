@@ -50,7 +50,7 @@ def create_logger(
 
     # Create file handler if log_file is specified
     if log_file:
-        f_handler = logging.FileHandler(log_file, mode="w")
+        f_handler = logging.FileHandler(log_file, mode="a")
         f_handler.setLevel(f_level)
         f_format = logging.Formatter(format_file, "%Y-%m-%d %H:%M:%S")
         f_handler.setFormatter(f_format)
