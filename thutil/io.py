@@ -71,7 +71,8 @@ def list_paths(paths: list[str], patterns: list[str], recursive=True) -> list[st
             result_paths.extend(glob(f"{path}/**/{pattern}", recursive=recursive))
 
     result_paths = list(set(result_paths))  # Remove duplicates
-    return result_paths
+    paths = [Path(p).as_posix() for p in result_paths]
+    return paths
 
 
 def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
@@ -107,6 +108,7 @@ def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
 
     files.extend(search_files)
     files = list(set(files))  # Remove duplicates
+    files = [Path(p).as_posix() for p in files]
     if not files:
         warnings.warn(f"The file list is empty. Check the paths {paths}.")
     return files
