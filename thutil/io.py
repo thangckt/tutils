@@ -74,7 +74,7 @@ def list_paths(paths: list[str], patterns: list[str], recursive=True) -> list[st
     return result_paths
 
 
-def collect_files(paths: list[str], exts: list[str]) -> list[str]:
+def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
     """Collect files from a list of paths (files/folders). Will search files in folders and their subdirectories.
 
     Parameters
@@ -97,7 +97,6 @@ def collect_files(paths: list[str], exts: list[str]) -> list[str]:
     pattern_paths = [p for p in paths if "*" in p]
 
     ### Files from dir_paths
-    patterns = [f"*.{ext.replace('*','')}" for ext in exts]  # revise exts to patterns
     search_files = list_paths(dir_paths, patterns)
     files.extend(search_files)
 
