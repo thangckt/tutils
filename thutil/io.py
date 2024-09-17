@@ -153,8 +153,7 @@ def load_setting_file(filename: Union[str, Path]) -> dict:
     if Path(filename).suffix in [".json", ".jsonc"]:
         jdata = load_jsonc(filename)
     elif Path(filename).suffix in [".yaml", ".yml"]:
-        with open(filename) as f:
-            jdata = yaml.safe_load(f)
+        jdata = read_yaml(filename)
     else:
         raise ValueError(f"Unsupported file format: {filename}")
     return jdata
@@ -170,8 +169,15 @@ def load_jsonc(filename: Union[str, Path]) -> dict:
     return jdata
 
 
-def write_yaml(data_dict: dict, filename: Union[str, Path]):
+def write_yaml(jdata: dict, filename: Union[str, Path]):
     """Write data to a YAML file."""
     with open(filename, "w") as f:
-        yaml.safe_dump(data_dict, f, default_flow_style=False, sort_keys=False)
+        yaml.safe_dump(jdata, f, default_flow_style=False, sort_keys=False)
     return
+
+
+def read_yaml(filename: Union[str, Path]) -> dict:
+    """Read data from a YAML file."""
+    with open(filename) as f:
+        jdata = yaml.safe_load(f)
+    return jdata
