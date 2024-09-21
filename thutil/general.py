@@ -106,3 +106,14 @@ def _install_package(package_name: str, git_repo: str = None) -> None:
 
     except subprocess.CalledProcessError as e:
         logger.error(f"Error occurred while installing the package: {e}")
+
+
+def get_func_args(func):
+    """Get the arguments of a function"""
+    import inspect
+
+    argspec = inspect.getfullargspec(func)
+    no_default_args = ["no_default_value"] * (len(argspec.args) - len(argspec.defaults))
+    all_values = no_default_args + list(argspec.defaults)
+    argsdict = dict(zip(argspec.args, all_values))
+    return argsdict
