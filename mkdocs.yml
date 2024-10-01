@@ -170,7 +170,6 @@ plugins:
 ###=======================================
 ### Site content
 ###=======================================
-## Page tree
 nav:
   - home: http://thang.eu.org
   # - molbuilder: https://thangckt.github.io/molbuilder
@@ -183,6 +182,7 @@ nav:
       - general.md
       - io.md
       - sth2sth.md
+      - API: api.md
 
   - thvid: http://thang.eu.org/thvid_doc
 
