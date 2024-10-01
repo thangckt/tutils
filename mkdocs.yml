@@ -172,11 +172,11 @@ plugins:
 ###=======================================
 ## Page tree
 nav:
-  - home: http://thangckt.github.io
+  - home: http://thang.eu.org
   # - molbuilder: https://thangckt.github.io/molbuilder
-  - alff: http://thangckt.github.io/alff_doc
-  - thmd: http://thangckt.github.io/thmd_doc
-  - thml: http://thangckt.github.io/thml_doc
+  - alff: http://thang.eu.org/alff_doc
+  - thmd: http://thang.eu.org/thmd_doc
+  - thml: http://thang.eu.org/thml_doc
 
   - thutil:
       - About: index.md
@@ -184,15 +184,15 @@ nav:
       - io.md
       - sth2sth.md
 
-  - thvid: http://thangckt.github.io/thvid_doc
+  - thvid: http://thang.eu.org/thvid_doc
 
-  - cluster: http://thangckt.github.io/cluster
-  - refs: http://thangckt.github.io/ref
-  - odd: http://thangckt.github.io/odd
-  - blog: http://thangckt.github.io/blog
+  - cluster: http://thang.eu.org/cluster
+  - ref: http://thang.eu.org/ref
+  - odd: http://thang.eu.org/odd
+  - blog: http://thang.eu.org/blog
 
   # - NextChat: http://chat-gpt-next-lvkto5aam-thangcktgmailcoms-projects.vercel.app
-  # - llm: http://thangckt.github.io/llm
+  # - llm: http://thang.eu.org/llm
   # - 1click_BibTeX: https://thang.eu.org/blog/2024/01/25/bibtex_generator/
-  - tv: http://thangckt.github.io/tv/
-  - contact: http://thangckt.github.io/contact
+  - tv: http://thang.eu.org/tv/
+  - contact: http://thang.eu.org/contact
