@@ -181,3 +181,15 @@ def read_yaml(filename: Union[str, Path]) -> dict:
     with open(filename) as f:
         jdata = yaml.safe_load(f)
     return jdata
+
+
+def download_rawtext(url: str, outfile: str = None) -> str:
+    """Download raw text from a URL."""
+    import requests
+
+    res = requests.get(url)
+    text = res.text
+    if outfile is not None:
+        with open(outfile, "w") as f:
+            f.write(text)
+    return text
