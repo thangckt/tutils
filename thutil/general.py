@@ -44,16 +44,14 @@ def create_logger(
     # Create console handler
     c_handler = logging.StreamHandler()
     c_handler.setLevel(c_level)
-    c_format = logging.Formatter(format_console)
-    c_handler.setFormatter(c_format)
+    c_handler.setFormatter(logging.Formatter(format_console))
     logger.addHandler(c_handler)
 
     # Create file handler if log_file is specified
     if log_file:
         f_handler = logging.FileHandler(log_file, mode="a")
         f_handler.setLevel(f_level)
-        f_format = logging.Formatter(format_file, "%Y-%m-%d %H:%M:%S")
-        f_handler.setFormatter(f_format)
+        f_handler.setFormatter(logging.Formatter(format_file, "%Y-%m-%d %H:%M:%S"))
         logger.addHandler(f_handler)
 
     return logger
