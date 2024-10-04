@@ -189,10 +189,11 @@ nav:
   - cluster: http://thang.eu.org/cluster
   - ref: http://thang.eu.org/ref
   - odd: http://thang.eu.org/odd
+  - tv: http://thang.eu.org/tv
   - blog: http://thang.eu.org/blog
 
   # - NextChat: http://chat-gpt-next-lvkto5aam-thangcktgmailcoms-projects.vercel.app
   # - llm: http://thang.eu.org/llm
   # - 1click_BibTeX: https://thang.eu.org/blog/2024/01/25/bibtex_generator/
-  - tv: http://thang.eu.org/tv/
+
   - contact: http://thang.eu.org/contact
