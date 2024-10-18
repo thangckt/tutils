@@ -60,9 +60,23 @@
         return browserInfo;
     }
 
+    function getTimestamp() {
+        const timestamp = new Date().toLocaleString("en-US", {
+            timeZone: "Asia/Seoul",
+            year: 'numeric',
+            month: 'short',  // short: "Jan", long: "January"
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false // 24-hour format
+        });
+        return timestamp;
+    }
+
     // Log visitor information and send to Google Sheet
     async function logVisitor() {
-        const timestamp = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
+        const timestamp = getTimestamp()
         const visitorInfo = await getVisitorInfo();
         const browserInfo = getBrowserInfo();
         const currentUrl = window.location.href.replace(window.location.origin, '');
