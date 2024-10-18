@@ -65,7 +65,7 @@ async function logVisitor() {
     const timestamp = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
     const visitorInfo = await getVisitorInfo();
     const browserInfo = getBrowserInfo();
-    const currentUrl = window.location.href;
+    const currentUrl = window.location.href.replace(window.location.origin, '');
 
     const jsonData = {
         timestamp: timestamp,
@@ -88,5 +88,5 @@ async function logVisitor() {
 
 // Function trigger the visitor logging when the page loads
 window.onload = function () {
-    logVisitor();
+    setTimeout(logVisitor, 5000); // Wait for 5000 milliseconds (5 seconds) before calling logVisitor
 };
