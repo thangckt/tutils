@@ -5,8 +5,8 @@
 // ref: Using Google App Mail: https://github.com/dwyl/learn-to-send-email-via-google-script-html-no-server
 
 
-const ScriptId = 'AKfycbzM04ouw1vGf5wOZs4106A95PUbfpahtJ-_7cOl1_vWFGw5xey4YLENbGbiyIgs0Xd2tw'
-const URL = `https://script.google.com/macros/s/${ScriptId}/exec`
+var ScriptId = 'AKfycbzM04ouw1vGf5wOZs4106A95PUbfpahtJ-_7cOl1_vWFGw5xey4YLENbGbiyIgs0Xd2tw'
+var URL = `https://script.google.com/macros/s/${ScriptId}/exec`
 
 // Async function to send JSON data to Google Sheets via Google Apps Script
 async function sendDataToGoogleApp(jsonData) {
