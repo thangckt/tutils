@@ -20,9 +20,9 @@ def create_logger(
         "CRITICAL": logging.CRITICAL,
     }
     format_map = {
-        "debug": "%(name)s - %(levelname)s: %(message)s | %(funcName)s:%(lineno)d",
-        "info": "%(name)s - %(levelname)s: %(message)s",
-        "file": "%(asctime)s | %(name)s - %(levelname)s: %(message)s",
+        "debug": "%(name)s-%(levelname)s: %(message)s | %(funcName)s:%(lineno)d",
+        "info": "%(name)s-%(levelname)s: %(message)s",
+        "file": "%(asctime)s | %(name)s-%(levelname)s: %(message)s",
     }
 
     # Set console and file logging levels
