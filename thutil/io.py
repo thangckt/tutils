@@ -122,6 +122,9 @@ def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
 ### ANCHOR: Load data from file
 def combine_text_files(files: list[str], output_file: str):
     """Combine text files into a single file."""
+    ### Create parent folder if not exist
+    Path(output_file).parent.mkdir(parents=True, exist_ok=True)
+    ### combine text files
     text = ""
     for file in files:
         with open(file) as f:
