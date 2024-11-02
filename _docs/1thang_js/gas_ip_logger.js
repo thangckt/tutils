@@ -36,7 +36,19 @@
             visistorInfo.loc = `${jdata.latitude},${jdata.longitude}`;
             visistorInfo.asn = jdata.asn;
         };
-
+        if (jdata === null) {
+            var res = await fetch('https://ipwho.is/');
+            var jdata = await res.json();
+            if (jdata) {
+                visistorInfo.ip = jdata.ip;
+                visistorInfo.org = jdata.connection.isp;
+                visistorInfo.city = jdata.city;
+                visistorInfo.country = jdata.country;
+                visistorInfo.postal = jdata.postal;
+                visistorInfo.loc = `${jdata.latitude},${jdata.longitude}`;
+                visistorInfo.asn = jdata.connection.asn;
+            };
+        }
         if (jdata === null) {
             var res = await fetch('https://ipapi.io/json/');
             var jdata = await res.json();
@@ -52,18 +64,6 @@
                 visistorInfo.loc = jdata.loc;
             };
         };
-        if (jdata === null) {
-            var res = await fetch('https://ipwho.is/');
-            var jdata = await res.json();
-            if (jdata) {
-                visistorInfo.ip = jdata.ip;
-                visistorInfo.org = jdata.connection.isp;
-                visistorInfo.city = jdata.city;
-                visistorInfo.country = jdata.country;
-                visistorInfo.postal = jdata.postal;
-                visistorInfo.loc = `${jdata.latitude},${jdata.longitude}`;
-            };
-        }
         return visistorInfo;
     }
 
