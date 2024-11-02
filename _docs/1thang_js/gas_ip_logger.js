@@ -25,7 +25,7 @@
     // Fetch visitor info using ipapi.co API
     async function getVisitorInfo() {
         var visistorInfo = { ip: '', org: '', city: '', country: '', postal: '', asn: '', loc: '' };
-        var res = await fetch('https://ipapi.co/json/');
+        var res = await fetch('https://ipapi.co/json');
         var jdata = await res.json();
         if (jdata) {
             visistorInfo.ip = jdata.ip;
@@ -37,7 +37,7 @@
             visistorInfo.loc = jdata.latitude + ',' + jdata.longitude;
         };
         if (jdata === null) {
-            var res = await fetch('https://ipwho.is/');
+            var res = await fetch('https://ipwho.is');
             var jdata = await res.json();
             if (jdata) {
                 visistorInfo.ip = jdata.ip;
@@ -50,11 +50,8 @@
             };
         }
         if (jdata === null) {
-            var res = await fetch('https://ipapi.io/json/');
+            var res = await fetch('https://ipinfo.io/json');
             var jdata = await res.json();
-            if (jdata === null) {
-                var res = await fetch('https://ipinfo.io/json/');
-            }
             if (jdata) {
                 visistorInfo.ip = jdata.ip;
                 visistorInfo.org = jdata.org;
