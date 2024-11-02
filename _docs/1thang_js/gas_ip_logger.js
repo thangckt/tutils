@@ -118,7 +118,7 @@
             org: visitorInfo.org,
             city: visitorInfo.city,
             region: visitorInfo.region,
-            country: visitorInfo.country_name,
+            country: visitorInfo.country,
             postal: visitorInfo.postal,
             loc: visitorInfo.loc,
             asn: visitorInfo.asn,
