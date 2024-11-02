@@ -33,7 +33,7 @@
             visistorInfo.city = jdata.city;
             visistorInfo.country = jdata.country_name;
             visistorInfo.postal = jdata.postal;
-            visistorInfo.loc = `${jdata.latitude},${jdata.longitude}`;
+            visistorInfo.loc = jdata.latitude + ',' + jdata.longitude;
             visistorInfo.asn = jdata.asn;
         };
         if (jdata === null) {
@@ -45,7 +45,7 @@
                 visistorInfo.city = jdata.city;
                 visistorInfo.country = jdata.country;
                 visistorInfo.postal = jdata.postal;
-                visistorInfo.loc = `${jdata.latitude},${jdata.longitude}`;
+                visistorInfo.loc = jdata.latitude + ',' + jdata.longitude;
                 visistorInfo.asn = jdata.connection.asn;
             };
         }
