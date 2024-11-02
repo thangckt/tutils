@@ -24,13 +24,47 @@
 
     // Fetch visitor info using ipapi.co API
     async function getVisitorInfo() {
-        try {
-            const response = await fetch('https://ipapi.co/json/');
-            return await response.json();
-        } catch (error) {
-            console.error('Error retrieving visitor information:', error);
-            return null;
+        var visistorInfo = { ip: '', org: '', city: '', country: '', postal: '', loc: '', asn: '' };
+        var res = await fetch('https://ipapi.co/json/');
+        var jdata = await res.json();
+        if (jdata) {
+            visistorInfo.ip = jdata.ip;
+            visistorInfo.org = jdata.org;
+            visistorInfo.city = jdata.city;
+            visistorInfo.country = jdata.country_name;
+            visistorInfo.postal = jdata.postal;
+            visistorInfo.loc = `${jdata.latitude},${jdata.longitude}`;
+            visistorInfo.asn = jdata.asn;
+        };
+
+        if (jdata === null) {
+            var res = await fetch('https://ipapi.io/json/');
+            var jdata = await res.json();
+            if (jdata === null) {
+                var res = await fetch('https://ipinfo.io/json/');
+            }
+            if (jdata) {
+                visistorInfo.ip = jdata.ip;
+                visistorInfo.org = jdata.org;
+                visistorInfo.city = jdata.city;
+                visistorInfo.country = jdata.country;
+                visistorInfo.postal = jdata.postal;
+                visistorInfo.loc = jdata.loc;
+            };
+        };
+        if (jdata === null) {
+            var res = await fetch('https://ipwho.is/');
+            var jdata = await res.json();
+            if (jdata) {
+                visistorInfo.ip = jdata.ip;
+                visistorInfo.org = jdata.connection.isp;
+                visistorInfo.city = jdata.city;
+                visistorInfo.country = jdata.country;
+                visistorInfo.postal = jdata.postal;
+                visistorInfo.loc = `${jdata.latitude},${jdata.longitude}`;
+            };
         }
+        return visistorInfo;
     }
 
     // Get browser information from user agent string
@@ -89,8 +123,7 @@
             region: visitorInfo.region,
             country: visitorInfo.country_name,
             postal: visitorInfo.postal,
-            latitude: visitorInfo.latitude,
-            longitude: visitorInfo.longitude,
+            loc: visitorInfo.loc,
             asn: visitorInfo.asn,
             browser: `${browserInfo.name} ${browserInfo.version}`,
             os: navigator.platform,
@@ -102,7 +135,7 @@
 
     // Function trigger the visitor logging when the page loads
     window.onload = function () {
-        setTimeout(logVisitor, 5000); // Wait for 5000 milliseconds (5 seconds) before calling logVisitor
+        setTimeout(logVisitor, 3000); // Wait for 5000 milliseconds (5 seconds) before calling logVisitor
     };
 
 })();
