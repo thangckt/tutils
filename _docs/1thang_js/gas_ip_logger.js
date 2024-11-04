@@ -24,44 +24,66 @@
 
     // Fetch visitor info using ipapi.co API
     async function getVisitorInfo() {
-        var visistorInfo = { ip: '', org: '', city: '', country: '', postal: '', asn: '', loc: '' };
-        var res = await fetch('https://ipapi.co/json');
-        var jdata = await res.json();
-        if (jdata) {
-            visistorInfo.ip = jdata.ip;
-            visistorInfo.org = jdata.org;
-            visistorInfo.city = jdata.city;
-            visistorInfo.country = jdata.country_name;
-            visistorInfo.postal = jdata.postal;
-            visistorInfo.asn = jdata.asn;
-            visistorInfo.loc = jdata.latitude + ',' + jdata.longitude;
-        };
-        if (jdata === null) {
-            var res = await fetch('https://ipwho.is');
-            var jdata = await res.json();
-            if (jdata) {
-                visistorInfo.ip = jdata.ip;
-                visistorInfo.org = jdata.connection.isp;
-                visistorInfo.city = jdata.city;
-                visistorInfo.country = jdata.country;
-                visistorInfo.postal = jdata.postal;
-                visistorInfo.asn = jdata.connection.asn;
-                visistorInfo.loc = jdata.latitude + ',' + jdata.longitude;
-            };
+        let visitorInfo = {};
+
+        // Helper function to check if an object is empty
+        function isEmpty(obj) {
+            return Object.keys(obj).length === 0;
         }
-        if (jdata === null) {
-            var res = await fetch('https://ipinfo.io/json');
-            var jdata = await res.json();
-            if (jdata) {
-                visistorInfo.ip = jdata.ip;
-                visistorInfo.org = jdata.org;
-                visistorInfo.city = jdata.city;
-                visistorInfo.country = jdata.country;
-                visistorInfo.postal = jdata.postal;
-                visistorInfo.loc = jdata.loc;
+
+        try {
+            let res = await fetch('https://ipapi.co/json');
+            let jdata = await res.json();
+            visitorInfo = {
+                ip: jdata.ip,
+                org: jdata.org,
+                city: jdata.city,
+                country: jdata.country_name,
+                postal: jdata.postal,
+                asn: jdata.asn,
+                loc: jdata.latitude + ';' + jdata.longitude,
             };
-        };
-        return visistorInfo;
+        } catch (error) {
+            console.error('Failed to get visitor info from ipapi.co:', error);
+        }
+
+        if (isEmpty(visitorInfo)) {
+            try {
+                let res = await fetch('https://ipwho.is');
+                let jdata = await res.json();
+                visitorInfo = {
+                    ip: jdata.ip,
+                    org: jdata.connection.isp,
+                    city: jdata.city,
+                    country: jdata.country,
+                    postal: jdata.postal,
+                    asn: jdata.connection.asn,
+                    loc: jdata.latitude + ';' + jdata.longitude,
+                };
+            } catch (error) {
+                console.error('Failed to get visitor info from ipwho.is:', error);
+            }
+        }
+
+        if (isEmpty(visitorInfo)) {
+            try {
+                let res = await fetch('https://ipinfo.io/json');
+                let jdata = await res.json();
+                visitorInfo = {
+                    ip: jdata.ip,
+                    org: jdata.org,
+                    city: jdata.city,
+                    country: jdata.country,
+                    postal: jdata.postal,
+                    asn: '',
+                    loc: jdata.loc,
+                };
+            } catch (error) {
+                console.error('Failed to get visitor info from ipinfo.io:', error);
+            }
+        }
+
+        return visitorInfo;
     }
 
     // Get browser information from user agent string
