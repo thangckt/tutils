@@ -59,7 +59,7 @@ def create_logger(
     return logger
 
 
-def check_installation(
+def check_package(
     package_name: str,
     git_repo: str = None,
     auto_install: bool = False,
@@ -89,23 +89,18 @@ def _install_package(package_name: str, git_repo: str = None) -> None:
         git_repo (str): git path for the package
 
     """
-    from .general_utils import create_logger
-
-    logger = create_logger()
-
     try:
-        logger.info(f"Installing the required packages: `{package_name}` ...")
+        print(f"Installing the required packages: `{package_name}` ...")
         if git_repo:
             command = f"pip install -U git+{git_repo}"
         else:
             command = f"pip install -U {package_name}"
-
         subprocess.run(command, check=True)
-
-        logger.info("Installation successful!")
-
+        print("Installation successful!")
     except subprocess.CalledProcessError as e:
-        logger.error(f"Error occurred while installing the package: {e}")
+        print(f"Error occurred while installing the package: {e}")
+        raise
+    return
 
 
 def get_func_args(func):
