@@ -1,6 +1,8 @@
 import logging
 import subprocess
 
+from thutil.stuff import fill_text_center, fill_text_left  # noqa: F401
+
 
 def create_logger(
     logger_name: str = None,
@@ -115,3 +117,26 @@ def get_func_args(func):
     all_values = no_default_args + list(argspec.defaults)
     argsdict = dict(zip(argspec.args, all_values))
     return argsdict
+
+
+def dependency_info(
+    modules=[
+        "numpy",
+        "polars",
+        "thutil",
+        "ase",
+    ],
+) -> str:
+    """Get the dependency information"""
+    text = "{}\n".format(fill_text_center("Dependencies", max_length=70))
+    for pkg in modules:
+        try:
+            mm = __import__(pkg)
+            ver = mm.__version__.split("+")[0]
+            path = mm.__path__[0]
+            text += "{:>12}  {:<12} {}\n".format(pkg, ver, path)
+        except ImportError:
+            text += "{:>12}  {:<12} {}\n".format(pkg, "unknown", "")
+        except AttributeError:
+            text += "{:>12}  {:<12} {}\n".format(pkg, "", "unknown version or path")
+    return text
