@@ -89,32 +89,47 @@
     // Get browser information from user agent string
     function getBrowserInfo() {
         const ua = navigator.userAgent;
-        const browserData = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
         const browserInfo = { name: 'Unknown', version: 'Unknown' };
 
-        if (/trident/i.test(browserData[1])) {
-            const version = /\brv[ :]+(\d+)/g.exec(ua) || [];
-            browserInfo.name = 'IE';
-            browserInfo.version = version[1] || '';
-        } else if (browserData[1] === 'Chrome') {
-            const temp = ua.match(/\b(OPR|Edg)\/(\d+)/);
-            if (temp) {
-                browserInfo.name = temp[1] === 'OPR' ? 'Opera' : 'Edge';
-                browserInfo.version = temp[2];
-            } else {
-                browserInfo.name = 'Chrome';
+        // Check for Safari on iOS devices
+        if (/iP(hone|od|ad)/.test(ua) && /Safari/.test(ua) && !/CriOS/.test(ua) && !/FxiOS/.test(ua)) {
+            const versionMatch = ua.match(/Version\/(\d+\.\d+)/);
+            browserInfo.name = 'Safari';
+            browserInfo.version = versionMatch ? versionMatch[1] : 'Unknown';
+        } else {
+            const browserData = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+
+            if (/trident/i.test(browserData[1])) {
+                const version = /\brv[ :]+(\d+)/g.exec(ua) || [];
+                browserInfo.name = 'IE';
+                browserInfo.version = version[1] || 'Unknown';
+            } else if (browserData[1] === 'Chrome') {
+                const temp = ua.match(/\b(OPR|Edg)\/(\d+)/);
+                if (temp) {
+                    browserInfo.name = temp[1] === 'OPR' ? 'Opera' : 'Edge';
+                    browserInfo.version = temp[2];
+                } else {
+                    browserInfo.name = 'Chrome';
+                    browserInfo.version = browserData[2];
+                }
+            } else if (browserData[1]) {
+                browserInfo.name = browserData[1];
                 browserInfo.version = browserData[2];
             }
-        } else if (browserData[1]) {
-            browserInfo.name = browserData[1];
-            browserInfo.version = browserData[2];
+
+            // Handle Safari on desktop or other WebKit-based browsers
+            if (/Safari/.test(ua) && !/Chrome/.test(ua)) {
+                const versionMatch = ua.match(/Version\/(\d+\.\d+)/);
+                browserInfo.name = 'Safari';
+                browserInfo.version = versionMatch ? versionMatch[1] : 'Unknown';
+            }
         }
 
         return browserInfo;
     }
 
     function getTimestamp() {
-        const timestamp = new Date().toLocaleString("en-US", {
+        const options = {
             timeZone: "Asia/Seoul",
             year: 'numeric',
             month: 'short',  // short: "Jan", long: "January"
@@ -123,8 +138,9 @@
             minute: '2-digit',
             second: '2-digit',
             hour12: false // 24-hour format
-        });
-        return timestamp;
+        };
+        const timestamp = new Date().toLocaleString("en-US", options);
+        return timestamp.replace(/ at /, ', ');
     }
 
     // Log visitor information and send to Google Sheet
