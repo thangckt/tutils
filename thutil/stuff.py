@@ -8,13 +8,13 @@ def chunk_list(input_list: list, n: int) -> Generator:
 
 
 ### ANCHOR: string modifier
-def fill_text_center(input_text="example", fill="=", max_length=60):
+def fill_text_center(input_text="example", fill="-", max_length=60):
     """Create a line with centered text."""
     text = f" {input_text} "
     return text.center(max_length, fill)
 
 
-def fill_text_left(input_text="example", left_margin=15, fill="=", max_length=60):
+def fill_text_left(input_text="example", left_margin=15, fill="-", max_length=60):
     """Create a line with left-aligned text."""
     text = f"{(fill * left_margin)} {input_text} "
     return text.ljust(max_length, fill)
