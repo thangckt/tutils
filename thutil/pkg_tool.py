@@ -1,5 +1,6 @@
 import logging
 import subprocess
+from pathlib import Path
 
 from thutil.stuff import fill_text_center, fill_text_left  # noqa: F401
 
@@ -129,7 +130,7 @@ def dependency_info(
             mm = __import__(pkg)
             ver = mm.__version__.split("+")[0]
             path = mm.__path__[0]
-            text += "{:>12}  {:<12} {}\n".format(pkg, ver, path)
+            text += "{:>12}  {:<12} {}\n".format(pkg, ver, Path(path).as_posix())
         except ImportError:
             text += "{:>12}  {:<12} {}\n".format(pkg, "unknown", "")
         except AttributeError:
