@@ -41,7 +41,8 @@
                 country: jdata.country_name,
                 postal: jdata.postal,
                 asn: jdata.asn,
-                loc: jdata.latitude + ';' + jdata.longitude,
+                latitude: jdata.latitude,
+                longitude: jdata.longitude,
             };
         } catch (error) {
             console.error('Failed to get visitor info from ipapi.co:', error);
@@ -58,7 +59,8 @@
                     country: jdata.country,
                     postal: jdata.postal,
                     asn: jdata.connection.asn,
-                    loc: jdata.latitude + ';' + jdata.longitude,
+                    latitude: jdata.latitude,
+                    longitude: jdata.longitude,
                 };
             } catch (error) {
                 console.error('Failed to get visitor info from ipwho.is:', error);
@@ -76,10 +78,16 @@
                     country: jdata.country,
                     postal: jdata.postal,
                     asn: '',
-                    loc: jdata.loc,
+                    latitude: jdata.loc.split(',')[0],
+                    longitude: jdata.loc.split(',')[1],
                 };
             } catch (error) {
                 console.error('Failed to get visitor info from ipinfo.io:', error);
+            }
+        }
+        if (isEmpty(visitorInfo)) {
+            visitorInfo = {
+                org: 'not available',
             }
         }
 
