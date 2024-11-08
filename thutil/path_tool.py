@@ -17,3 +17,12 @@ def make_dir(path: str, backup: bool = True):
     ### Create the new directory
     path.mkdir(parents=True, exist_ok=True)
     return
+
+
+def copy_file(src_path: str, dest_path: str):
+    """
+    Copy a file/folder from the source path to the destination path.
+    """
+    Path(f"{dest_path}").mkdir(parents=True, exist_ok=True)
+    new_path = shutil.copy2(src_path, dest_path)
+    return new_path
