@@ -78,8 +78,8 @@
         for (const api of apis) {
             try {
                 const res = await fetch(api.url);
-                if (res.ok) {
-                    const jdata = await res.json();
+                const jdata = await res.json();
+                if (jdata && jdata.ip) {
                     visitorInfo = api.parse(jdata);
                     if (!isEmpty(visitorInfo)) {
                         break; // Stop if valid data is obtained
@@ -181,7 +181,6 @@
         };
         await sendDataToGoogleApp(jsonData);
     }
-
 
     // Function trigger the visitor logging when the page loads
     window.onload = function () {
