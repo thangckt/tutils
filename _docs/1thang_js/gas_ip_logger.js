@@ -138,7 +138,6 @@
                 browserInfo.version = versionMatch ? versionMatch[1] : 'Unknown';
             }
         }
-
         return browserInfo;
     }
 
