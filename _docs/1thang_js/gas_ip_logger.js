@@ -37,7 +37,7 @@
                 url: 'https://ipinfo.io/json',
                 parse: (data) => ({
                     ip: data.ip,
-                    org: data.org.split(' ')[1],
+                    org: data.org.split(' ').slice(1).join(" "),
                     city: data.city,
                     country: data.country,
                     postal: data.postal,
