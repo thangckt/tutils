@@ -121,15 +121,15 @@ def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
     return files
 
 
-def scan_paths(
-    paths: list[str],
+def scan_dirs(
+    dirs: list[str],
     with_files: list[str],
     without_files: list[str] = [],
 ) -> list[str]:
-    """Check if the paths contains and not contains some files.
+    """Check if the folders contains and not contains some files.
 
     Args:
-        paths (list[str]): The paths of dirs to scan.
+        dirs (list[str]): The paths of dirs to scan.
         with_files (list[str]): The files that should exist in the path.
         without_files (list[str], optional): The files that should not exist in the work_path. Defaults to [].
 
@@ -137,7 +137,7 @@ def scan_paths(
         list[str]: The paths that meet the conditions.
     """
     found_paths = [
-        p for p in paths if all(Path(f"{p}/{f}").exists() for f in with_files)
+        p for p in dirs if all(Path(f"{p}/{f}").exists() for f in with_files)
     ]
     found_paths = [
         p
@@ -150,4 +150,64 @@ def scan_paths(
 def remove_files_in_paths(files: list, paths: list) -> None:
     """Remove files in the `files` list in the `paths` list."""
     _ = [Path(f"{p}/{f}").unlink() for p in paths for f in files]
+    return
+
+
+##### ANCHOR: change path names
+def change_pathname(
+    paths: list[str], old_string: str, new_string: str, replace: bool = False
+) -> None:
+    """change path names
+
+    Args:
+        paths (list[str]): paths to the files/dirs
+        old_string (str): old string in path name
+        new_string (str): new string in path name
+        replace (bool, optional): replace the old path name if the new one exists. Defaults to False.
+    """
+    ### Classify dirs and files
+    paths = [p for p in paths if old_string in p]
+    files = [p for p in paths if Path(p).is_file()]
+    dirs = [p for p in paths if Path(p).is_dir()]
+    print(f"There are {len(files)} files and {len(dirs)} directories, need to change.")
+
+    ### Change the path names
+    changed_count = 0
+    for f in files:
+        new_name = f.replace(old_string, new_string)
+        if Path(new_name).exists() and not replace:
+            print(f'WARNING: "{new_name}" already exists, skipping it.')
+        else:
+            Path(f).rename(new_name)
+            changed_count += 1
+
+    for d in dirs:
+        new_name = d.replace(old_string, new_string)
+        if Path(new_name).exists() and not replace:
+            print(f'WARNING: "{new_name}" already exists, skipping it.')
+        else:
+            Path(d).rename(new_name)
+            changed_count += 1
+
+    print(f"Changed {changed_count} of {len(paths)} paths.")
+    return
+
+
+def remove_files(files: list[str]) -> None:
+    """Remove files from a given list of file paths.
+
+    Args:
+        files (list[str]): list of file paths
+    """
+    _ = [Path(f).unlink() for f in files]
+    return
+
+
+def remove_dirs(dirs: list[str]) -> None:
+    """Remove a list of directories.
+
+    Parameters:
+        dirs (list[str]): list of directories to remove.
+    """
+    _ = [shutil.rmtree(d) for d in dirs]
     return
