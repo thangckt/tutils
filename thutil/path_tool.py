@@ -203,6 +203,15 @@ def copy_file(src_path: str, dest_path: str):
     return new_path
 
 
+def move_file(src_path: str, dest_path: str):
+    """
+    Move a file/folder from the source path to the destination path.
+    """
+    Path(dest_path).parent.mkdir(parents=True, exist_ok=True)
+    new_path = shutil.move(src_path, dest_path)
+    return new_path
+
+
 def scan_dirs(
     dirs: list[str],
     with_files: list[str],
