@@ -21,15 +21,6 @@ def make_dir(path: str, backup: bool = True):
     return
 
 
-def copy_file(src_path: str, dest_path: str):
-    """
-    Copy a file/folder from the source path to the destination path.
-    """
-    Path(dest_path).parent.mkdir(parents=True, exist_ok=True)
-    new_path = shutil.copy2(src_path, dest_path)
-    return new_path
-
-
 ### ANCHOR: Collect files
 def list_paths(paths: list[str], patterns: list[str], recursive=True) -> list[str]:
     """List all files/folders in given directories and their subdirectories that match the given patterns.
@@ -121,38 +112,6 @@ def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
     return files
 
 
-def scan_dirs(
-    dirs: list[str],
-    with_files: list[str],
-    without_files: list[str] = [],
-) -> list[str]:
-    """Check if the folders contains and not contains some files.
-
-    Args:
-        dirs (list[str]): The paths of dirs to scan.
-        with_files (list[str]): The files that should exist in the path.
-        without_files (list[str], optional): The files that should not exist in the work_path. Defaults to [].
-
-    Returns:
-        list[str]: The paths that meet the conditions.
-    """
-    found_paths = [
-        p for p in dirs if all(Path(f"{p}/{f}").exists() for f in with_files)
-    ]
-    found_paths = [
-        p
-        for p in found_paths
-        if all(not Path(f"{p}/{f}").exists() for f in without_files)
-    ]
-    return found_paths
-
-
-def remove_files_in_paths(files: list, paths: list) -> None:
-    """Remove files in the `files` list in the `paths` list."""
-    _ = [Path(f"{p}/{f}").unlink() for p in paths for f in files]
-    return
-
-
 ##### ANCHOR: change path names
 def change_pathname(
     paths: list[str], old_string: str, new_string: str, replace: bool = False
@@ -211,3 +170,60 @@ def remove_dirs(dirs: list[str]) -> None:
     """
     _ = [shutil.rmtree(d) for d in dirs]
     return
+
+
+def remove_files_in_paths(files: list, paths: list) -> None:
+    """Remove files in the `files` list in the `paths` list."""
+    _ = [
+        Path(f"{p}/{f}").unlink()
+        for p in paths
+        for f in files
+        if Path(f"{p}/{f}").exists()
+    ]
+    return
+
+
+def remove_dirs_in_paths(dirs: list, paths: list) -> None:
+    """Remove directories in the `dirs` list in the `paths` list."""
+    _ = [
+        shutil.rmtree(f"{p}/{d}")
+        for p in paths
+        for d in dirs
+        if Path(f"{p}/{d}").exists()
+    ]
+    return
+
+
+def copy_file(src_path: str, dest_path: str):
+    """
+    Copy a file/folder from the source path to the destination path.
+    """
+    Path(dest_path).parent.mkdir(parents=True, exist_ok=True)
+    new_path = shutil.copy2(src_path, dest_path)
+    return new_path
+
+
+def scan_dirs(
+    dirs: list[str],
+    with_files: list[str],
+    without_files: list[str] = [],
+) -> list[str]:
+    """Check if the folders contains and not contains some files.
+
+    Args:
+        dirs (list[str]): The paths of dirs to scan.
+        with_files (list[str]): The files that should exist in the path.
+        without_files (list[str], optional): The files that should not exist in the work_path. Defaults to [].
+
+    Returns:
+        list[str]: The paths that meet the conditions.
+    """
+    found_paths = [
+        p for p in dirs if all(Path(f"{p}/{f}").exists() for f in with_files)
+    ]
+    found_paths = [
+        p
+        for p in found_paths
+        if all(not Path(f"{p}/{f}").exists() for f in without_files)
+    ]
+    return found_paths
