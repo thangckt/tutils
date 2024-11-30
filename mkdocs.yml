@@ -181,9 +181,9 @@ nav:
 
   - thutil:
       - About: index.md
-      - general.md
-      - io.md
-      - sth2sth.md
+      # - general.md
+      # - io.md
+      # - sth2sth.md
       - API: api.md
 
   - thvid: http://thang.eu.org/thvid_doc
