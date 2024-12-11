@@ -222,7 +222,7 @@ def scan_dirs(
     Args:
         dirs (list[str]): The paths of dirs to scan.
         with_files (list[str]): The files that should exist in the path.
-        without_files (list[str], optional): The files that should not exist in the work_path. Defaults to [].
+        without_files (list[str], optional): The files that should not exist in the work_dir. Defaults to [].
 
     Returns:
         list[str]: The paths that meet the conditions.
