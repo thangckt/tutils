@@ -1,5 +1,4 @@
 import shutil
-import warnings
 from glob import glob
 from pathlib import Path
 
@@ -107,8 +106,6 @@ def collect_files(paths: list[str], patterns: list[str]) -> list[str]:
     files.extend(search_files)
     files = list(set(files))  # Remove duplicates
     files = [Path(p).as_posix() for p in files]
-    if not files:
-        warnings.warn(f"The file list is empty. Check the paths {paths}.")
     return files
 
 
