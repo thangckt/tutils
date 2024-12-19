@@ -3,6 +3,7 @@ from glob import glob
 from pathlib import Path
 
 
+##### ANCHOR: Make dirs
 def make_dir(path: str, backup: bool = True):
     """Create a directory with a backup option."""
     path = Path(path)
@@ -20,7 +21,41 @@ def make_dir(path: str, backup: bool = True):
     return
 
 
-### ANCHOR: Collect files
+def make_dir_ask_backup(dir_path: str):
+    """Make a directory and ask for backup if the directory already exists."""
+    if Path(dir_path).is_dir():
+        ans = ask_yes_no(
+            f" The directory `{dir_path}` already existed. Select an action: [yes/no/backup]?\n  Yes: overwrite the existing directory and continue/update uncompleted tasks.\n  No: interrupt and exit process.\n  Backup: backup the existing directory and perform fresh tasks."
+        )
+        if ans == "yes":
+            print("\tOverwrite the existing directory")
+            make_dir(dir_path, backup=False)
+        elif ans == "backup":
+            print("\tBackup the existing directory")
+            make_dir(dir_path, backup=True)
+        if ans == "no":
+            print("\tSkip the building process due to existing directory")
+            return
+    else:
+        make_dir(dir_path, backup=False)
+    return
+
+
+def ask_yes_no(question: str) -> str:
+    """Asks a yes/no/backup question and returns the response."""
+    while True:
+        answer = input(f"{question} \n\tYour answer (y/n/b): ").strip().lower()
+        if answer in ["yes", "y"]:
+            return "yes"
+        elif answer in ["no", "n"]:
+            return "no"
+        elif answer in ["backup", "b"]:
+            return "backup"
+        else:
+            print("Please answer with 'yes', 'no', or 'backup'.")
+
+
+##### ANCHOR: Collect files
 def list_paths(paths: list[str], patterns: list[str], recursive=True) -> list[str]:
     """List all files/folders in given directories and their subdirectories that match the given patterns.
 
