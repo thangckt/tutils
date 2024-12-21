@@ -2,7 +2,7 @@
 
 The package for general ulitities.
 
-This package is developed and maintained by [C.Thang Nguyen](https://thangckt.github.io)
+Developed and maintained by [C.Thang Nguyen](https://thangckt.github.io)
 """
 
 # from .check_installation import *
