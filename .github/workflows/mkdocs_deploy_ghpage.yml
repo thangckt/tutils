@@ -23,10 +23,6 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: fetch extra javascript
-        run: |
-          python _docs/_script/fetch_js.py
-
       - name: Install dependencies # mkdocs-jupyter can cause broken in tabs-header
         run: |
           pip install git+https://github.com/thangckt/mkdocs-material.git@main     # main  v9.4.9 tabs_header_yinkh
@@ -34,6 +30,12 @@ jobs:
 
           # pip install mkdocs-jupyter # conflict
           # pip install mkdocs-enumerate-headings-plugin #  mkdocs
+
+
+      - name: fetch extra javascript
+        run: |
+          python _docs/_script/fetch_js.py
+
 
       - name: MkDocs build & deploy site # This will create `gh-pages` branch contain `mkdocs-site`. See https://www.mkdocs.org/user-guide/cli/#mkdocs-gh-deploy
         run: mkdocs gh-deploy --force --verbose
