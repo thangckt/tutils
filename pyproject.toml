@@ -9,7 +9,7 @@ description = "General utilities for Python"
 authors = [{ name = "C.Thang Nguyen", email = "thangckt@gmail.com" }]
 license = { file = "LICENSE.md" }
 
-dependencies = ['pyyaml','requests']
+dependencies = ['pyyaml', 'requests']
 
 requires-python = ">=3.7"
 
@@ -19,7 +19,8 @@ requires-python = ">=3.7"
 
 
 [tool.setuptools_scm]
-version_file = "thutil/_version.py"
+write_to = "thutil/__version.py"
+fallback_version = "0.1"
 
 [tool.setuptools.packages.find]
 include = ["thutil*"]
