@@ -9,7 +9,7 @@ Developed and maintained by [C.Thang Nguyen](https://thangckt.github.io)
 # from .general_utils import *
 
 try:
-    from ._version import version as __version__
+    from .__version import version as __version__
 except ImportError:
     __version__ = "unkown"
 
