@@ -6,12 +6,14 @@ import yaml
 
 
 ### ANCHOR: YAML config
-def validate_config(config_file, schema_file):
+def validate_config(config_file, schema_file, allow_unknown=False, require_all=False):
     """Validate the config file with the schema file.
 
     Args:
         config_file (str): path to the YAML config file
         schema_file (str): path to the YAML schema file
+        allow_unknown (bool, optional): whether to allow unknown fields in the config file. Defaults to False.
+        require_all (bool, optional): whether to require all fields in the schema file to be present in the config file. Defaults to False.
 
     Raises:
         ValueError: if the config file does not match the schema
@@ -21,7 +23,7 @@ def validate_config(config_file, schema_file):
     document = yaml.safe_load(open(config_file))
     schema = yaml.safe_load(open(schema_file))
 
-    v = Validator(allow_unknown=False, require_all=False)
+    v = Validator(allow_unknown=allow_unknown, require_all=require_all)
     res = v.validate(document, schema)
     if not res:
         raise ValueError(f"Error in config file: {config_file} \n{v.errors}")
