@@ -41,23 +41,23 @@ def create_logger(
         logger_name = __name__
 
     # Create and configure the logger
-    logger = logging.getLogger(logger_name)
-    logger.setLevel(c_level)  # Ensures the logger can handle the specified log level
+    Logger = logging.getLogger(logger_name)
+    Logger.setLevel(c_level)  # Ensures the logger can handle the specified log level
 
     # Create console handler
     c_handler = logging.StreamHandler()
     c_handler.setLevel(c_level)
     c_handler.setFormatter(logging.Formatter(format_console))
-    logger.addHandler(c_handler)
+    Logger.addHandler(c_handler)
 
     # Create file handler if log_file is specified
     if log_file:
         f_handler = logging.FileHandler(log_file, mode="a")
         f_handler.setLevel(f_level)
         f_handler.setFormatter(logging.Formatter(format_file, "%Y-%b-%d %H:%M:%S"))
-        logger.addHandler(f_handler)
+        Logger.addHandler(f_handler)
 
-    return logger
+    return Logger
 
 
 def check_package(
