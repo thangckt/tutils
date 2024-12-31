@@ -29,9 +29,9 @@ def validate_config(
         ValueError: if the config file does not match the schema
     """
     if config_file:
-        config_dict = yaml.safe_load(open(config_file))
+        config_dict = yaml.load(open(config_file))
     if schema_file:
-        schema_dict = yaml.safe_load(open(schema_file))
+        schema_dict = yaml.load(open(schema_file))
 
     if not config_dict:
         raise ValueError("`config_dict` or `config_file` must be provided.")
