@@ -3,28 +3,43 @@ from pathlib import Path
 from typing import Union
 
 import yaml
+from cerberus import Validator
 
 
 ### ANCHOR: YAML config
-def validate_config(config_file, schema_file, allow_unknown=False, require_all=False):
+def validate_config(
+    config_dict=None,
+    config_file=None,
+    schema_dict=None,
+    schema_file=None,
+    allow_unknown=False,
+    require_all=False,
+):
     """Validate the config file with the schema file.
 
     Args:
-        config_file (str): path to the YAML config file
-        schema_file (str): path to the YAML schema file
+        config_dict (dict, optional): config dictionary. Defaults to None.
+        config_file (str, optional): path to the YAML config file, will override `config_dict`. Defaults to None.
+        schema_dict (dict, optional): schema dictionary. Defaults to None.
+        schema_file (str, optional): path to the YAML schema file, will override `schema_dict`. Defaults to None.
         allow_unknown (bool, optional): whether to allow unknown fields in the config file. Defaults to False.
         require_all (bool, optional): whether to require all fields in the schema file to be present in the config file. Defaults to False.
 
     Raises:
         ValueError: if the config file does not match the schema
     """
-    from cerberus import Validator
+    if config_file:
+        config_dict = yaml.safe_load(open(config_file))
+    if schema_file:
+        schema_dict = yaml.safe_load(open(schema_file))
 
-    document = yaml.safe_load(open(config_file))
-    schema = yaml.safe_load(open(schema_file))
+    if not config_dict:
+        raise ValueError("`config_dict` or `config_file` must be provided.")
+    if not schema_dict:
+        raise ValueError("`schema_dict` or `schema_file` must be provided.")
 
     v = Validator(allow_unknown=allow_unknown, require_all=require_all)
-    res = v.validate(document, schema)
+    res = v.validate(config_dict, schema_dict)
     if not res:
         raise ValueError(f"Error in config file: {config_file} \n{v.errors}")
     return
