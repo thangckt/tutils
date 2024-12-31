@@ -34,9 +34,9 @@ def validate_config(
         schema_dict = yaml.safe_load(open(schema_file))
 
     if not config_dict:
-        raise ValueError("`config_dict` or `config_file` must be provided.")
+        raise ValueError("Must provide either `config_dict` or `config_file`")
     if not schema_dict:
-        raise ValueError("`schema_dict` or `schema_file` must be provided.")
+        raise ValueError("Must provide either `schema_dict` or `schema_file`")
 
     v = Validator(allow_unknown=allow_unknown, require_all=require_all)
     res = v.validate(config_dict, schema_dict)
