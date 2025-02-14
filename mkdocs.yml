@@ -186,8 +186,6 @@ nav:
       # - sth2sth.md
       - API: api.md
 
-  - thvid: http://thang.eu.org/thvid_doc
-
   - hpc: http://thang.eu.org/cluster
   - ref: http://thang.eu.org/ref
   - odd: http://thang.eu.org/odd
