@@ -16,7 +16,7 @@ theme:
   highlightjs: true
   features:
     - content.code.annotate
-    # - navigation.expand
+    - navigation.expand
     # - navigation.sections
     - navigation.indexes
     # - navigation.instant
@@ -198,5 +198,4 @@ nav:
   # - NextChat: http://chat-gpt-next-lvkto5aam-thangcktgmailcoms-projects.vercel.app
   # - llm: http://thang.eu.org/llm
   # - 1click_BibTeX: https://thang.eu.org/blog/2024/01/25/bibtex_generator/
-
   - email: http://thang.eu.org/email
