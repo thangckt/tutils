@@ -181,9 +181,12 @@ nav:
 
   - thutil:
       - About: index.md
-      # - general.md
-      # - io.md
-      # - sth2sth.md
+      - Some tools:
+        - config: config.md
+        - io: io.md
+        - path: path.md
+        - pkg: pkg.md
+        - sth2sth: sth2sth.md
       - API: api.md
 
   - hpc: http://thang.eu.org/cluster
