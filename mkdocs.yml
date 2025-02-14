@@ -181,7 +181,7 @@ nav:
 
   - thutil:
       - About: index.md
-      - Some tools:
+      - Some utils:
         - config: config.md
         - io: io.md
         - path: path.md
